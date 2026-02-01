@@ -5,3 +5,19 @@ Project/Firefighting Human-Robot Collaboration Review .gdoc
 Project/desktop.ini
 Assignment 1/1-3/x356t577_CS898AW_HW1_3_Report.gdoc
 Assignment 1/1-2/x356t577_CS898AW_HW1_2_Report.gdoc
+```text
+# Python debris
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Virtual Environment (if you use one)
+.venv/
+env/

@@ -1,0 +1,6 @@
+Words,Definition,Affordance,Affordance 2,Tool Type,Domain File,Problem File
+Dishwasher,A machine for washing dishes automatically.,support,press,cleaning_tool,x356t577_tools_domain.pddl,x356t577_tools_problem.pddl
+Grater,"A device having a surface covered with holes edged by slightly raised cutting edges, used for grating cheese and other foods.",handle-grasp,press,cutting_tool,x356t577_tools_domain.pddl,x356t577_tools_problem.pddl
+teleprinter,"A device for transmitting telegraph messages as they are keyed, and for printing messages received.",support,press,printing_tool,x356t577_tools_domain.pddl,x356t577_tools_problem.pddl
+Barometer,"An instrument measuring atmospheric pressure, used especially in forecasting the weather and determining altitude.",support,wrap-grasp,measuring_tool,x356t577_tools_domain.pddl,x356t577_tools_problem.pddl
+throttle,A device controlling the flow of fuel or power to an engine.,lever,pull,control_tool,x356t577_tools_domain.pddl,x356t577_tools_problem.pddl

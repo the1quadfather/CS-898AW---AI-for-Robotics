@@ -1,0 +1,61 @@
+; Problem file for CS898AW SP25 Assignment 2 - Modeling Tool Affordances
+; WSUID: x356t577
+(define (problem tool-usage-problem)
+    (:domain tools-domain)
+    (:objects
+        robot - agent
+        dishwasher grater teleprinter barometer throttle - tool
+        handle-grasp press lift pull twist wrap-grasp support lever - affordance
+        kitchen study garage living-room - location
+        use-dishwasher use-grater use-teleprinter use-barometer use-throttle - action
+    )
+    (:init
+        ; Agent starts in the kitchen
+        (at robot kitchen)
+
+        ; Agent has all assigned tools initially
+        (has robot dishwasher)
+        (has robot grater)
+        (has robot teleprinter)
+        (has robot barometer)
+        (has robot throttle)
+
+        ; Define affordances for each tool based on the CSV 
+        (affords dishwasher support) 
+        (affords dishwasher press) 
+        (affords grater handle-grasp) 
+        (affords grater press) 
+        (affords teleprinter support) 
+        (affords teleprinter press) 
+        (affords barometer support) 
+        (affords barometer wrap-grasp) 
+        (affords throttle lever) 
+        (affords throttle pull) 
+
+        ; Define which affordances are used for which actions (linking affordances to potential actions)
+        (used-for support use-dishwasher)
+        (used-for press use-dishwasher)
+        (used-for handle-grasp use-grater)
+        (used-for press use-grater)
+        (used-for support use-teleprinter)
+        (used-for press use-teleprinter)
+        (used-for support use-barometer)
+        (used-for wrap-grasp use-barometer)
+        (used-for lever use-throttle)
+        (used-for pull use-throttle)
+
+        ; Initial state predicates for the effects of actions (initially false)
+        ; (dishes-clean) is false
+        ; (food-grated) is false
+        ; (message-transmitted) is false
+        ; (pressure-measured) is false
+        ; (engine-controlled) is false
+        ; (used ?tool) is false for all tools
+    )
+    (:goal (and
+        ; Goal: Achieve specific states using certain tools
+        (food-grated)
+        (message-transmitted)
+        (engine-controlled)
+    ))
+)

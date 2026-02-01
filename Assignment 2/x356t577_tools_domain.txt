@@ -1,0 +1,117 @@
+; Domain file for CS898AW SP25 Assignment 2 - Modeling Tool Affordances
+; WSUID: x356t577
+(define (domain tools-domain)
+    (:requirements :strips :typing)
+    (:types agent tool affordance location action)
+    (:predicates
+        (has ?agent - agent ?tool - tool)
+        (affords ?tool - tool ?affordance - affordance)
+        (used-for ?affordance - affordance ?action - action)
+        (at ?agent - agent ?location - location)
+        ; Add predicates for the state changes achieved by using tools
+        (dishes-clean) ; for Dishwasher
+        (food-grated) ; for Grater
+        (message-transmitted) ; for Teleprinter
+        (pressure-measured) ; for Barometer
+        (engine-controlled) ; for Throttle
+        ; Generic state predicate for tool usage
+        (used ?tool - tool)
+    )
+
+    (:actions
+        ; Action for using the Dishwasher (support, press)
+        (:action use-dishwasher
+            :parameters (?agent - agent ?dishwasher - tool ?affordance-s - affordance ?affordance-p - affordance ?location - location)
+            :precondition (and
+                (has ?agent ?dishwasher)
+                (at ?agent ?location)
+                (affords ?dishwasher ?affordance-s)
+                (used-for ?affordance-s support) ; Dishwasher supports dishes
+                (affords ?dishwasher ?affordance-p)
+                (used-for ?affordance-p press) ; Dishwasher buttons are pressed
+            )
+            :effect (and
+                (dishes-clean)
+                (used ?dishwasher)
+            )
+        )
+
+        ; Action for using the Grater (handle-grasp, press)
+        (:action use-grater
+            :parameters (?agent - agent ?grater - tool ?affordance-hg - affordance ?affordance-p - affordance ?location - location)
+            :precondition (and
+                (has ?agent ?grater)
+                (at ?agent ?location)
+                (affords ?grater ?affordance-hg)
+                (used-for ?affordance-hg handle-grasp)
+                (affords ?grater ?affordance-p)
+                (used-for ?affordance-p press) ; Pressing food against grater
+            )
+            :effect (and
+                (food-grated)
+                (used ?grater)
+            )
+        )
+
+        ; Action for using the Teleprinter (support, press)
+        (:action use-teleprinter
+            :parameters (?agent - agent ?teleprinter - tool ?affordance-s - affordance ?affordance-p - affordance ?location - location)
+            :precondition (and
+                (has ?agent ?teleprinter)
+                (at ?agent ?location)
+                (affords ?teleprinter ?affordance-s)
+                (used-for ?affordance-s support) ; Teleprinter supports paper/itself
+                (affords ?teleprinter ?affordance-p)
+                (used-for ?affordance-p press) ; Pressing keys
+            )
+            :effect (and
+                (message-transmitted)
+                (used ?teleprinter)
+            )
+        )
+
+        ; Action for using the Barometer (support, wrap-grasp)
+        (:action use-barometer
+            :parameters (?agent - agent ?barometer - tool ?affordance-s - affordance ?affordance-wg - affordance ?location - location)
+            :precondition (and
+                (has ?agent ?barometer)
+                (at ?agent ?location)
+                (affords ?barometer ?affordance-s)
+                (used-for ?affordance-s support) ; Barometer is placed on a support
+                (affords ?barometer ?affordance-wg)
+                (used-for ?affordance-wg wrap-grasp) ; Agent interacts with dial/body
+            )
+            :effect (and
+                (pressure-measured)
+                (used ?barometer)
+            )
+        )
+
+        ; Action for using the Throttle (lever, pull)
+        (:action use-throttle
+            :parameters (?agent - agent ?throttle - tool ?affordance-l - affordance ?affordance-p - affordance ?location - location)
+            :precondition (and
+                (has ?agent ?throttle)
+                (at ?agent ?location)
+                (affords ?throttle ?affordance-l)
+                (used-for ?affordance-l lever)
+                (affords ?throttle ?affordance-p)
+                (used-for ?affordance-p pull) ; Throttle lever is pulled
+            )
+            :effect (and
+                (engine-controlled)
+                (used ?throttle)
+            )
+        )
+
+        ; Generic move action
+        (:action move
+            :parameters (?agent - agent ?from - location ?to - location)
+            :precondition (at ?agent ?from)
+            :effect (and
+                (not (at ?agent ?from))
+                (at ?agent ?to)
+            )
+        )
+    )
+)
